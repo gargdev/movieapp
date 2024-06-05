@@ -41,6 +41,7 @@ const MovieCard = ({ movie }) => {
         className="w-full h-64 object-cover"
       />
       <h3 className="text-lg font-bold mt-2">{movie.Title}</h3>
+      <h1>Anoop</h1>
       <p className="text-gray-600">{movie.Year}</p>
       <div className="mt-4">
         {user ? (

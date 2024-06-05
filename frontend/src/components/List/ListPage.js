@@ -5,22 +5,22 @@ import MovieCard from '../Movie/MovieCard';
 import api from '../../utils/api';
 
 const ListPage = () => {
-  const { listId } = useParams(); // Get the listId from URL parameters
-  const [movies, setMovies] = useState([]);
+  const { listId } = useParams(); 
+  const [list, setList] = useState(null);
 
   useEffect(() => {
-    // Fetch movies for the list
-    const fetchMovies = async () => {
+    
+    const fetchList = async () => {
       try {
         const response = await api.get(`/lists/${listId}`);
-        setMovies(response.data.movies);
+        setList(response.data);
       } catch (error) {
-        console.error('Error fetching movies:', error);
+        console.error('Error fetching list:', error);
       }
     };
 
     if (listId) {
-      fetchMovies();
+      fetchList();
     }
   }, [listId]);
 
@@ -28,9 +28,13 @@ const ListPage = () => {
 
   return (
     <div>
-      {movies.map((movie) => (
-        <MovieCard key={movie.imdbID} movie={movie} listId={listId} />
-      ))}
+      {list ? (
+        list.movies.map((movie) => (
+          <MovieCard key={movie._id} movie={movie} listId={listId} />
+        ))
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 };

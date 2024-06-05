@@ -1,30 +1,34 @@
 // src/pages/MyLists.js
+
 import React, { useState, useEffect } from 'react';
 import api from '../utils/api';
-import ListCard from '../components/List/ListCard';
 
 const MyLists = () => {
-  const [lists, setLists] = useState([]);
+  const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    const fetchLists = async () => {
+    const fetchMovies = async () => {
       try {
-        const response = await api.get('/lists');
-        setLists(response.data);
+        const response = await api.get('/user/movies');
+        setMovies(response.data);
       } catch (error) {
-        console.error(error);
+        console.error('Error fetching user movies:', error);
       }
     };
 
-    fetchLists();
+    fetchMovies();
   }, []);
 
   return (
     <div className="container mx-auto">
-      <h2 className="text-2xl font-bold mt-4">My Lists</h2>
+      <h2 className="text-2xl font-bold mt-4">My Movies</h2>
       <div className="mt-8 grid grid-cols-4 gap-4">
-        {lists.map((list) => (
-          <ListCard key={list._id} list={list} />
+        {movies.map((movie) => (
+          <div key={movie._id} className="border p-4 rounded">
+            <img src={movie.poster} alt={movie.title} className="w-full h-64 object-cover" />
+            <h3 className="text-lg font-bold mt-2">{movie.title}</h3>
+            <p className="text-gray-600">{movie.year}</p>
+          </div>
         ))}
       </div>
     </div>

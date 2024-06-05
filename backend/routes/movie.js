@@ -6,5 +6,7 @@ const router = express.Router();
 
 router.get('/search', authMiddleware, searchMovies);
 router.post('/', authMiddleware, addMovie);
+router.get('/user/movies', authenticateToken, movieController.getMoviesForUser);
+
 
 module.exports = router;

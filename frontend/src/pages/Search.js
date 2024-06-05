@@ -1,4 +1,3 @@
-// src/pages/Search.js
 import React, { useState, useContext } from 'react';
 import api from '../utils/api';
 import MovieCard from '../components/Movie/MovieCard';

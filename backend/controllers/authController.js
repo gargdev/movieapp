@@ -1,4 +1,3 @@
-// controllers/authController.js
 const User = require("../models/User");
 const List = require("../models/List");
 const jwt = require("jsonwebtoken");

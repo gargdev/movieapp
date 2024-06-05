@@ -1,4 +1,3 @@
-// routes/movie.js
 const express = require('express');
 const { searchMovies, addMovie } = require('../controllers/movieController');
 const authMiddleware = require('../middlewares/authMiddleware');

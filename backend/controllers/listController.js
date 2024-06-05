@@ -1,4 +1,3 @@
-// controllers/listController.js
 const axios = require("axios");
 const mongoose = require("mongoose");
 const List = require("../models/List");

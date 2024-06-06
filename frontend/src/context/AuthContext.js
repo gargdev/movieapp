@@ -34,9 +34,9 @@ const AuthProvider = ({ children }) => {
 
   const fetchUserDefaultList = async (decodedUser) => {
     try {
-      const response = await api.get('/user/movie');
+      const response = await api.get('/lists/default');
       setUser({ ...decodedUser, defaultList: response.data });
-      console.log('Default list fetched and set:', response.data);
+      console.log('Default list fetched and set:', response.data); // Add logging
     } catch (error) {
       console.error('Error fetching user default list:', error);
     }
@@ -47,7 +47,7 @@ const AuthProvider = ({ children }) => {
     if (token) {
       const decodedUser = jwtDecode(token);
       setUser(decodedUser);
-      fetchUserDefaultList(decodedUser);
+      fetchUserDefaultList(decodedUser); // Fetch the user's default list if a token is found
     }
   }, []);
 

@@ -1,3 +1,6 @@
+
+
+// controllers/listController.js
 const axios = require("axios");
 const mongoose = require("mongoose");
 const List = require("../models/List");
@@ -15,15 +18,29 @@ exports.createList = async (req, res) => {
   }
 };
 
-exports.getMoviesForUser = async (req, res) => {
+exports.getLists = async (req, res) => {
+  const userId = req.user.id;
   try {
-    const userId = req.user.id;
-    const userLists = await List.find({ user: userId }).populate('movies');
-    const movies = userLists.map(list => list.movies).flat(); // Combine all movies from user's lists into one array
-    res.json(movies);
-  } catch (error) {
-    console.error("Error fetching user's movie list:", error);
-    res.status(500).json({ message: "Internal server error" });
+    const lists = await List.find({ user: userId }).populate("movies");
+    res.status(200).json(lists);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+exports.getDefaultList = async (req, res) => {
+  const userId = req.user.id;
+  try {
+    const defaultList = await List.findOne({
+      user: userId,
+      name: "Default List",
+    });
+    if (!defaultList) {
+      return res.status(404).json({ message: "Default list not found" });
+    }
+    res.status(200).json(defaultList);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };
 
@@ -61,3 +78,15 @@ exports.addMovieToList = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 };
+
+// exports.getMoviesForUser = async (req, res) => {
+//   try {
+//     const userId = req.user.id;
+//     const userLists = await List.find({ user: userId }).populate('movies');
+//     const movies = userLists.map(list => list.movies).flat(); // Combine all movies from user's lists into one array
+//     res.json(movies);
+//   } catch (error) {
+//     console.error("Error fetching user's movie list:", error);
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// };

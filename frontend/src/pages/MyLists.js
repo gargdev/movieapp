@@ -30,7 +30,7 @@ const MyLists = () => {
 
       {defaultMovies.length > 0 && (
         <div>
-          <h3 className="text-xl font-bold mt-8">Default List</h3>
+          {/* <h3 className="text-xl font-bold mt-8">Default List</h3> */}
           <div className="mt-4 grid grid-cols-4 gap-4">
             {defaultMovies.map((movie) => (
               <ListCard key={movie.imdbID} movie={movie} />
